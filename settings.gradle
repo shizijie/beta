@@ -4,4 +4,5 @@ include 'service-zuul'
 include 'eureka-client'
 include 'service-feign'
 include 'service-ribbon'
+include 'service-beta'
 
