@@ -22,6 +22,12 @@ dependencies {
     //pagehelper
     compile("com.github.pagehelper:pagehelper-spring-boot-starter:1.1.1")
 
+    //lombok
     compile ("org.projectlombok:lombok:1.12.6")
+
+    //redis
+    compile ("org.springframework.boot:spring-boot-starter-data-redis")
+    compile ("redis.clients:jedis")
+    compile ("org.springframework.data:spring-data-redis")
 
 }

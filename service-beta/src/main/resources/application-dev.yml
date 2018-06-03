@@ -9,11 +9,24 @@ server:
 spring:
   application:
     name: service-beta
+  # mysql
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:53306/beta?characterEncoding=utf8
     username: root
     password: 123456
+  #redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: foobared
+    port: 56379
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+
 
 # mybatis配置
 mybatis:
@@ -26,5 +39,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
 
 
