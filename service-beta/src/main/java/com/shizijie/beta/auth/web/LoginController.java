@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @Api(value="user", tags="用户模块")
-@EnableAutoConfiguration
 @RestController
 @RequestMapping("/user")
 public class LoginController {
