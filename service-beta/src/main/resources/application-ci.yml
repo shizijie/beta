@@ -5,6 +5,7 @@ eureka:
 
 server:
   port: 8080
+  context-path: /beta
 
 spring:
   application:
