@@ -6,7 +6,7 @@ eureka:
     fetch-registry: false
 
 server:
-  port: 8081
+  port: 8080
   context-path: /beta
 
 spring:
