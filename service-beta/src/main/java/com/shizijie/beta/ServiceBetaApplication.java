@@ -10,13 +10,14 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication//(exclude = {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableHystrixDashboard
 @EnableHystrix
-@MapperScan("com.shizijie.beta")
+@MapperScan("com.shizijie.beta.*")
 @EnableScheduling
 @EnableTransactionManagement
 public class ServiceBetaApplication {
