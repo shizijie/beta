@@ -30,4 +30,13 @@ dependencies {
     compile ("redis.clients:jedis")
     compile ("org.springframework.data:spring-data-redis")
 
+    //swagger
+    compile('io.springfox:springfox-swagger2:2.6.1')
+    compile('io.springfox:springfox-swagger-ui:2.6.1')
+
+    //pagehelper
+    compile('com.github.pagehelper:pagehelper-spring-boot-starter:1.2.2')
+
+    //hadoop
+    compile('org.springframework.data:spring-data-hadoop:2.5.0.RELEASE')
 }

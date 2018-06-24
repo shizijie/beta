@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableHystrixDashboard
 @EnableHystrix
 @MapperScan("com.shizijie.beta.*")
-@ComponentScan("com.shizijie.beta.*")
 @EnableScheduling
 @EnableTransactionManagement
 public class ServiceBetaApplication {

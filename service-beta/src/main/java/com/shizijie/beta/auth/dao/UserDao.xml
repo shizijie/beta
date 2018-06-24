@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shizijie.beta.auth.dao.UserDao">
+    <select id="getUserByNameAndPwd" resultType="com.shizijie.beta.auth.dto.UserDTO">
+      select  user_id userId,
+              user_name userName,
+              is_valid isValid
+      from beta_user
+      where user_name=#{userName}
+      and   password=#{password}
+    </select>
+    
+    <resultMap id="AuthDTOList" type="com.shizijie.beta.auth.dto.AuthDTO">
+        <result column="menuId_1" jdbcType="VARCHAR" property="menuId"/>
+        <result column="menuName_1" jdbcType="VARCHAR" property="menuName"/>
+        <result column="menuUrl_1" jdbcType="VARCHAR" property="menuUrl"/>
+        <collection property="authDTOList" ofType="com.shizijie.beta.auth.dto.AuthDTO">
+            <result column="menuId_2" jdbcType="VARCHAR" property="menuId"/>
+            <result column="menuName_2" jdbcType="VARCHAR" property="menuName"/>
+            <result column="menuUrl_2" jdbcType="VARCHAR" property="menuUrl"/>
+            <collection property="authDTOList" ofType="com.shizijie.beta.auth.dto.AuthDTO">
+                <result column="menuId_3" jdbcType="VARCHAR" property="menuId"/>
+                <result column="menuName_3" jdbcType="VARCHAR" property="menuName"/>
+                <result column="menuUrl_3" jdbcType="VARCHAR" property="menuUrl"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getAuthListByUserId" resultMap="AuthDTOList">
+      select c.menu_name  menuName_3,  c.menu_url  menuUrl_3 , c.menu_id  menuId_3  ,
+             d.menu_name  menuName_2,  d.menu_url  menuUrl_2 , d.menu_id  menuId_2  ,
+             e.menu_name  menuName_1,  e.menu_url  menuUrl_1 , e.menu_id  menuId_1
+        from beta_user_role a left join beta_role_menu b on a.role_id=b.role_id
+        and a.is_valid='0' and b.is_valid='0'
+        left join beta_menu c on b.menu_id=c.menu_id and c.menu_level='3' and c.is_valid='0'
+        left join beta_menu d on c.menu_pid=d.menu_id and d.menu_level='2' and d.is_valid='0'
+        left join beta_menu e on d.menu_pid=e.menu_id and e.menu_level='1' and e.is_valid='0'
+        where a.user_id=#{userId}
+    </select>
+
+</mapper>

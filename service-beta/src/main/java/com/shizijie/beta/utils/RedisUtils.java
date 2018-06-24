@@ -32,7 +32,7 @@ public class RedisUtils {
     /**
      * 写入缓存设置时效时间
      * @param key
-     * @param value
+     * @param value 秒
      * @return
      */
     public boolean set(final String key, Object value, Long expireTime) {
