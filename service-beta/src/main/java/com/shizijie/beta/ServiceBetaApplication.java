@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -15,7 +16,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableFeignClients
 @EnableHystrixDashboard
 @EnableHystrix
-@MapperScan("com.shizijie.beta")
+@MapperScan("com.shizijie.beta.*")
+@ComponentScan("com.shizijie.beta.*")
 @EnableScheduling
 @EnableTransactionManagement
 public class ServiceBetaApplication {
