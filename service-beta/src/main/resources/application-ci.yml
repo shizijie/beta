@@ -7,7 +7,6 @@ eureka:
 
 server:
   port: 8080
-  context-path: /beta
 
 spring:
   application:
@@ -21,9 +20,9 @@ spring:
   #redis
   redis:
     database: 0
-    host: 127.0.0.1
+    host: 192.168.1.104
     password: foobared
-    port: 56379
+    port: 36379
     pool:
       max-idle: 8
       min-idle: 0

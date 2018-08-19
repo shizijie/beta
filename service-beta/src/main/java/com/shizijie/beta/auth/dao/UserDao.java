@@ -10,4 +10,6 @@ public interface UserDao {
     UserDTO getUserByNameAndPwd(@Param("userName")String userName,@Param("password")String password);
 
     List<AuthDTO> getAuthListByUserId(@Param("userId")String userId);
+
+    int insertUser(UserDTO user);
 }

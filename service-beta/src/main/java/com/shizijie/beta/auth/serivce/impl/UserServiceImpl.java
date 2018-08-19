@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @version 2018-06-10 下午7:02
  */
 @Service
+@Transactional(rollbackFor = { Exception.class })
 public class UserServiceImpl implements UserService {
     private final static Logger log= LoggerFactory.getLogger(UserServiceImpl.class);
     private final static String TOKEN="token_";
@@ -56,5 +58,20 @@ public class UserServiceImpl implements UserService {
         }else{
             return ResultBean.fail("帐号/密码错误！");
         }
+    }
+
+    @Override
+    public void test() {
+        System.out.println(System.currentTimeMillis());
+        UserDTO user=new UserDTO();
+        user.setUserName("1");
+        user.setPassword("2");
+        int num=userDao.insertUser(user);
+        String sre=null;
+        //System.out.println(sre.equals("1"));
+        for(int i=0;i<100000000;i++){
+            List<AuthDTO> authDTOList=userDao.getAuthListByUserId("1");
+        }
+        System.out.println(System.currentTimeMillis());
     }
 }

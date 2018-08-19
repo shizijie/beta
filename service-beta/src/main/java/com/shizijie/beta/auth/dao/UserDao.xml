@@ -38,4 +38,9 @@
         where a.user_id=#{userId}
     </select>
 
+    <insert id="insertUser" >
+        insert into beta_user (user_id,user_name,password,is_valid,create_time,create_by,update_time,update_by)
+        values (REPLACE(UUID(),"-",""),#{userName},#{password},'0',now(),'sys',now(),'sys')
+    </insert>
+
 </mapper>

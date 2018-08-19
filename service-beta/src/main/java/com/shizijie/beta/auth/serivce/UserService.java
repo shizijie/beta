@@ -9,4 +9,6 @@ import com.shizijie.beta.common.ResultBean;
  */
 public interface UserService {
     ResultBean userLogin(String username, String password);
+
+    void test();
 }
