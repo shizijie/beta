@@ -8,5 +8,6 @@ public class MyUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         System.out.println("Catched Throwable: " + e.getClass().getSimpleName() + ", " + e.getMessage());
+        System.out.println(Thread.currentThread().getName());
     }
 }

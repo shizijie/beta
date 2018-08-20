@@ -11,6 +11,7 @@ public class MyThreadFactory implements ThreadFactory {
     public Thread newThread(Runnable r) {
         Thread t = new Thread(r);
         t.setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());
+        t.setName("demo-pool-%d");
         System.out.println("Thread[" + t.getName() + "] created.");
         return t;
     }
