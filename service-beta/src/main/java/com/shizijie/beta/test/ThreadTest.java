@@ -3,8 +3,6 @@ package com.shizijie.beta.test;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.shizijie.beta.thread.KpiCalcThread;
-import com.sun.tools.corba.se.idl.constExpr.Positive;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import java.util.concurrent.*;
 
