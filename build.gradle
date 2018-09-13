@@ -11,7 +11,11 @@ buildscript {
         springCloudVersion='Edgware.SR3'
     }
     repositories {
-        maven {url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public'
+            //url 'http://repo1.maven.org/maven2/'
+            //url 'https://repo.maven.apache.org/maven2'
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
