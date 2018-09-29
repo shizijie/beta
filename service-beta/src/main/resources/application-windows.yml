@@ -18,15 +18,15 @@ spring:
   # mysql
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.104:33306/beta?characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/beta?characterEncoding=utf8
     username: root
     password: 123456
   #redis
   redis:
     database: 0
-    host: 192.168.1.104
-    password: foobared
-    port: 36379
+    host: 127.0.0.1
+    password: 123456
+    port: 6379
     pool:
       max-idle: 8
       min-idle: 0

@@ -2,6 +2,8 @@ package com.shizijie.beta.demo.lambda;
 
 import com.shizijie.beta.auth.dto.UserDTO;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -13,5 +15,6 @@ public class Lambda {
     public static void main(String[] args) {
         String[] strArr={"1","2","3","4"};
         Map<String,UserDTO> map= Stream.of(strArr).collect(Collectors.toMap(a->a,a->setUser.apply(a)));
+        List<String> list= Arrays.asList(strArr);
     }
 }

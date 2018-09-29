@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: windows
 
 logging:
   config: classpath:logback-dev.xml

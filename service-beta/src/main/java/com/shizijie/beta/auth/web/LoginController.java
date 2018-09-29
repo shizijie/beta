@@ -1,7 +1,6 @@
 package com.shizijie.beta.auth.web;
 
 import com.shizijie.beta.auth.dao.UserDao;
-import com.shizijie.beta.auth.serivce.impl.EnumServiceImpl;
 import com.shizijie.beta.auth.serivce.impl.UserServiceImpl;
 import com.shizijie.beta.auth.utils.MD5Util;
 import com.shizijie.beta.auth.vo.UserVO;

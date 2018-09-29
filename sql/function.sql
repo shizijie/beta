@@ -17,3 +17,9 @@ end;
 /
 
 
+--oracle创建索引并行
+create index indexName on tableName (columnName) parallel 8;
+
+--pg创建索引并行
+create index concurrently indexName on tableName (columnName);
+
