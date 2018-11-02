@@ -3,7 +3,11 @@ package com.shizijie.beta.redis.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+/**
+ * @author shizijie
+ * @version 2018-11-02 下午10:12
+ */
+@SuppressWarnings("unused,unchecked")
 public interface RedisService {
     //======================================    Hash    =====================================================
 

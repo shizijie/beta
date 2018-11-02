@@ -10,10 +10,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-
+/**
+ * @author shizijie
+ * @version 2018-06-10 下午10:12
+ */
 @Slf4j
 public class EncodingDetect {
-
+    /**
+     * 获取文件编码
+     * @param filePath 文件地址
+     * @return 编码
+     */
     public static String getJavaEncode(String filePath) {
         BytesEncodingDetect s = new BytesEncodingDetect();
         String fileCode = BytesEncodingDetect.javaname[s
@@ -21,7 +28,12 @@ public class EncodingDetect {
         return fileCode;
     }
 
-
+    /**
+     * 输出文件
+     * @param path 文件地址
+     * @param content 内容
+     * @param charSet 编码
+     */
     public static void writeFile(String path,String content,String charSet){
         try {
             OutputStreamWriter out = new OutputStreamWriter(
@@ -33,8 +45,12 @@ public class EncodingDetect {
             log.error("EncodingDetect error",e);
         }
     }
+
     /**
-     * 读取文件
+     * 读取文件方法
+     * @param file  文件地址
+     * @param isTrims   是否换行
+     * @return 文件字符串
      */
     public static String readFile(String file , boolean...isTrims) {
         StringBuffer buffer = new StringBuffer();
@@ -96,28 +112,6 @@ class BytesEncodingDetect extends Encoding {
         KRFreq = new int[94][94];
         JPFreq = new int[94][94];
         initialize_frequencies();
-    }
-
-    public static void main(String argc[]) {
-        BytesEncodingDetect sinodetector;
-        int result = OTHER;
-        int i;
-        sinodetector = new BytesEncodingDetect();
-        for (i = 0; i < argc.length; i++) {
-            if (argc[i].startsWith("http://") == true) {
-                try {
-                    result = sinodetector.detectEncoding(new URL(argc[i]));
-                } catch (Exception e) {
-                    System.err.println("Bad URL " + e.toString());
-                }
-            } else if (argc[i].equals("-d")) {
-                sinodetector.debug = true;
-                continue;
-            } else {
-                result = sinodetector.detectEncoding(new File(argc[i]));
-            }
-            System.out.println(nicename[result]);
-        }
     }
 
     public int detectEncoding(URL testurl) {

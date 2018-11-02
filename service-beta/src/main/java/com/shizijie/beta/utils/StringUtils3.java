@@ -1,5 +1,8 @@
 package com.shizijie.beta.utils;
-
+/**
+ * @author shizijie
+ * @version 2018-06-10 下午10:12
+ */
 public class StringUtils3 {
     /**
      * 校验是否为数字

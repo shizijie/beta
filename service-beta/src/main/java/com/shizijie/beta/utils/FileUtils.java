@@ -6,7 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
-
+/**
+ * @author shizijie
+ * @version 2018-06-10 下午10:12
+ */
 public class FileUtils {
 
     public static String codeString(String fileName) throws Exception {
