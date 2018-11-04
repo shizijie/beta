@@ -1,9 +1,12 @@
 package com.shizijie.beta.redis.service.impl;
 
 import com.shizijie.beta.redis.service.RedisService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +20,8 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("unused,unchecked")
 public class RedisServiceImpl implements RedisService {
-    @Autowired
+    @Getter
+    @Setter
     private RedisTemplate redisTemplate;
 
     @Override

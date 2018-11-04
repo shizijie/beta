@@ -23,7 +23,7 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
                 //设置允许的方法
                 .allowedMethods("*")
                 //设置访问源请求头
-                //.allowedHeaders("token")
+                .allowedHeaders("Content-Type","token")
                 //跨域允许时间
                 .maxAge(3600);
     }

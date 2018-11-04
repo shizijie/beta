@@ -14,20 +14,20 @@ public class ResultBean {
     /**返回编码*/
     private String code;
     /**编码信息*/
-    private String codeInfo;
+    private String msg;
     /**返回信息结果*/
     private Object result;
 
     public static ResultBean success(Object obj){
         ResultBean bean=new ResultBean();
-        bean.setCode("00000");
+        bean.setCode("000000");
         bean.setResult(obj);
         return bean;
     }
     public static ResultBean fail(String errorInfo){
         ResultBean bean=new ResultBean();
-        bean.setCode("99999");
-        bean.setCodeInfo(errorInfo);
+        bean.setCode("999999");
+        bean.setMsg(errorInfo);
         return bean;
     }
 }

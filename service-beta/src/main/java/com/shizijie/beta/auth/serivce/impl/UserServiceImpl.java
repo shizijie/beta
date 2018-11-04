@@ -4,19 +4,17 @@ import com.shizijie.beta.auth.dao.UserDao;
 import com.shizijie.beta.auth.dto.AuthDTO;
 import com.shizijie.beta.auth.dto.UserDTO;
 import com.shizijie.beta.auth.serivce.UserService;
-import com.shizijie.beta.auth.web.LoginController;
 import com.shizijie.beta.common.ResultBean;
-import com.shizijie.beta.utils.RedisUtils;
+import com.shizijie.beta.redis.service.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author shizijie
@@ -24,13 +22,15 @@ import java.util.Map;
  */
 @Service
 @Transactional(rollbackFor = { Exception.class })
+@Slf4j
 public class UserServiceImpl implements UserService {
-    private final static Logger log= LoggerFactory.getLogger(UserServiceImpl.class);
     private final static String TOKEN="token_";
     @Autowired
     UserDao userDao;
     @Autowired
-    RedisUtils redisUtils;
+    RedisService redisService;
+    @Autowired
+    RedisTemplate redisTemplate;
     @Override
     public ResultBean userLogin(String username, String password) {
         UserDTO userDTO=userDao.getUserByNameAndPwd(username,password);
@@ -49,9 +49,10 @@ public class UserServiceImpl implements UserService {
                     }
                 }
                 userDTO.setAuthList(authList);
-                redisUtils.set(TOKEN.concat(userDTO.getUserId()),userDTO,30*60l);
+                String uuid= UUID.randomUUID().toString().replace("-","");
+                redisService.set(uuid,userDTO,30*60*1000L);
                 Map<String,Object> map=new HashMap<>();
-                map.put("token",TOKEN.concat(userDTO.getUserId()));
+                map.put("token",uuid);
                 map.put("authList",authDTOList);
                 return ResultBean.success(map);
             }
