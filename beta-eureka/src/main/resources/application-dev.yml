@@ -1,8 +1,21 @@
 eureka:
+  server:
+    #自我保护
+    enable-self-preservation: true
+    #清理间隔（单位毫秒，默认是60*1000）
+    eviction-interval-timer-in-ms: 4000
   instance:
     hostname: localhost
+    # 心跳检测检测与续约时间
+    # 测试时将值设置设置小些，保证服务关闭后注册中心能及时踢出服务
+    # 每间隔1s，向服务端发送一次心跳，证明自己依然”存活“
+    lease-renewal-interval-in-seconds: 1
+    # 告诉服务端，如果我2s之内没有给你发心跳，就代表我“死”了，将我踢出掉。
+    lease-expiration-duration-in-seconds: 2
   client:
+      #声明是否将自己的信息注册到 Eureka 服务器上
       register-with-eureka: false
+      #是否到 Eureka 服务器中抓取注册信息
       fetch-registry: false
       service-url:
         defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
