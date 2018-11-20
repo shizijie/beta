@@ -1,0 +1,23 @@
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-feign')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    compile('org.springframework.cloud:spring-cloud-starter-hystrix')
+    compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
+
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    //使用 Controller 的时候需要引入 web 包
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+    compile ('mysql:mysql-connector-java')
+
+    //hadoop
+    compile('org.springframework.data:spring-data-hadoop:2.5.0.RELEASE')
+
+    compile project(':beta-common')
+
+}

@@ -1,0 +1,5 @@
+spring:
+  application:
+      name: beta-zuul
+  profiles:
+    active: dev
