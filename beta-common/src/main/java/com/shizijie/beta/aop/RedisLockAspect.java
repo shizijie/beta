@@ -15,6 +15,7 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -28,6 +29,11 @@ import java.util.Map;
 @Aspect
 @Component
 public class RedisLockAspect {
+    private static String SPLIT=",";
+
+    private static String CONNECT="_";
+
+
     @Pointcut("@annotation(com.shizijie.beta.annotation.Lock)")
     public void pointcut(){
 
@@ -36,30 +42,81 @@ public class RedisLockAspect {
     @Around("pointcut()&&@annotation(lock)")
     public Object test(ProceedingJoinPoint joinPoint, Lock lock){
         String classType = joinPoint.getTarget().getClass().getName();
-        System.out.println(classType);
         String methodName = joinPoint.getSignature().getName();
-        // 参数值
-        Object[] args = joinPoint.getArgs();
+        String key=classType+"."+methodName;
+        if(StringUtils.hasText(lock.key())){
+            String[] keys=lock.key().split(SPLIT);
+            // 参数值
+            Object[] args = joinPoint.getArgs();
+            String[] parameterNames = getParamsByMethod(classType,methodName,args);
+            for(int i=0;i<keys.length;i++){
+                boolean isBean=keys[i].indexOf(".")>0;
+                if(isBean){
+                    String name=keys[i].substring(0,keys[i].indexOf("."));
+                    String value=keys[i].substring(keys[i].indexOf(".")+1);
+                    for(int j=0;j<parameterNames.length;j++){
+                        if(name.equals(parameterNames[j])){
+                            if(map.get(args[j].getClass().getName())==null){
+                                Field[] fields=args[j].getClass().getDeclaredFields();
+                                for(int k=0;k<fields.length;k++){
+                                    if(value.equals(fields[k].getName())){
+                                        fields[k].setAccessible(true);
+                                        try {
+                                            key+=CONNECT+fields[k].get(args[j]);
+                                        } catch (IllegalAccessException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }else{
+                                key+=CONNECT+args[j];
+                            }
+                            break;
+                        }
+                    }
+                }else{
+                    for(int j=0;j<parameterNames.length;j++){
+                        if(keys[i].equals(parameterNames[j])){
+                            if(map.get(args[j].getClass().getName())==null){
+                                Field[] fields=args[j].getClass().getDeclaredFields();
+                                for(int k=0;k<fields.length;k++){
+                                    if(keys[i].equals(fields[k].getName())){
+                                        fields[k].setAccessible(true);
+                                        try {
+                                            key+=CONNECT+fields[k].get(args[j]);
+                                        } catch (IllegalAccessException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }else{
+                                key+=CONNECT+args[j];
+                            }
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+        System.out.println(key);
+        Object result=null;
+        try{
+            result=joinPoint.proceed();
+        }catch (Throwable e){
+
+        }
+        return result;
+    }
+
+    private static String[] getParamsByMethod(String classType,String methodName,Object[] args){
         Class<?>[] classes = new Class[args.length];
         for (int k = 0; k < args.length; k++) {
             if (!args[k].getClass().isPrimitive()) {
                 // 获取的是封装类型而不是基础类型
                 String result = args[k].getClass().getName();
-                System.out.println(result);
                 Class s = map.get(result);
                 classes[k] = s == null ? args[k].getClass() : s;
-                if(s==null){
-                    Field[] fields=args[k].getClass().getDeclaredFields();
-                    for(int i=0;i<fields.length;i++){
-                        fields[i].setAccessible(true);
-                        System.out.println("name:"+fields[i].getName());
-                        try {
-                            System.out.println("value:"+fields[i].get(args[k]));
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
             }
         }
         ParameterNameDiscoverer pnd = new DefaultParameterNameDiscoverer();
@@ -73,20 +130,7 @@ public class RedisLockAspect {
             e.printStackTrace();
         }
         // 参数名
-        String[] parameterNames = pnd.getParameterNames(method);
-        // 通过map封装参数和参数值
-        HashMap<String, Object> paramMap = new HashMap();
-        for (int i = 0; i < parameterNames.length; i++) {
-            paramMap.put(parameterNames[i], args[i]);
-        }
-        System.out.println(paramMap);
-        Object result=null;
-        try{
-            result=joinPoint.proceed();
-        }catch (Throwable e){
-
-        }
-        return result;
+        return pnd.getParameterNames(method);
     }
 
     private static HashMap<String, Class> map = new HashMap<String, Class>() {

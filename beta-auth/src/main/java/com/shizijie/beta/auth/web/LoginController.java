@@ -41,7 +41,7 @@ public class LoginController {
         return userServiceImpl.userLogin(vo.getUserName(), MD5Util.md5(vo.getPassword()));
     }
     @GetMapping("/test")
-    @Lock(key="#id")
+    @Lock(key="vo.userName")
     public ResultBean test(UserVO vo){
         return ResultBean.success("1111");
     }
