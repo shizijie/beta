@@ -1,5 +1,6 @@
 package com.shizijie.beta.auth.web;
 
+import com.shizijie.beta.annotation.Lock;
 import com.shizijie.beta.auth.dao.UserDao;
 import com.shizijie.beta.auth.serivce.impl.UserServiceImpl;
 import com.shizijie.beta.auth.utils.MD5Util;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +41,7 @@ public class LoginController {
         return userServiceImpl.userLogin(vo.getUserName(), MD5Util.md5(vo.getPassword()));
     }
     @GetMapping("/test")
+    @Lock(key="#id")
     public ResultBean test(UserVO vo){
         return ResultBean.success("1111");
     }

@@ -235,7 +235,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean isLock(String key) {
-        return get(LOCK_PREFIX+key)!=null;
+        return redisTemplate.hasKey(LOCK_PREFIX+key);
     }
 
     @Override

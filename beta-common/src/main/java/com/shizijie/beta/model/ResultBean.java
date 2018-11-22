@@ -7,15 +7,15 @@ import lombok.Data;
  * @version 2018-06-10 下午8:16
  */
 @Data
-public class ResultBean {
+public class ResultBean<T> {
     /**返回编码*/
     private String code;
     /**编码信息*/
     private String msg;
     /**返回信息结果*/
-    private Object result;
+    private T result;
 
-    public static ResultBean success(Object obj){
+    public static <T>ResultBean success(T obj){
         ResultBean bean=new ResultBean();
         bean.setCode("000000");
         bean.setResult(obj);
