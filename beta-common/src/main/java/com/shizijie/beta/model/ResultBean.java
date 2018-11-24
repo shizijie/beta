@@ -1,5 +1,6 @@
 package com.shizijie.beta.model;
 
+import com.shizijie.beta.params.ResultParams;
 import lombok.Data;
 
 /**
@@ -17,14 +18,33 @@ public class ResultBean<T> {
 
     public static <T>ResultBean success(T obj){
         ResultBean bean=new ResultBean();
-        bean.setCode("000000");
+        bean.setCode(ResultParams.CODE_200.getCode());
+        bean.setMsg(ResultParams.CODE_200.getMsg());
         bean.setResult(obj);
         return bean;
     }
-    public static ResultBean fail(String errorInfo){
+    public static <T>ResultBean success(){
         ResultBean bean=new ResultBean();
-        bean.setCode("999999");
-        bean.setMsg(errorInfo);
+        bean.setCode(ResultParams.CODE_200.getCode());
+        bean.setMsg(ResultParams.CODE_200.getMsg());
+        return bean;
+    }
+    public static <T>ResultBean fail(String msg){
+        ResultBean bean=new ResultBean();
+        bean.setCode(ResultParams.CODE_500.getCode());
+        bean.setMsg(msg);
+        return bean;
+    }
+    public static <T>ResultBean fail500(){
+        ResultBean bean=new ResultBean();
+        bean.setCode(ResultParams.CODE_500.getCode());
+        bean.setMsg(ResultParams.CODE_500.getMsg());
+        return bean;
+    }
+    public static <T>ResultBean fail403(){
+        ResultBean bean=new ResultBean();
+        bean.setCode(ResultParams.CODE_403.getCode());
+        bean.setMsg(ResultParams.CODE_403.getMsg());
         return bean;
     }
 }

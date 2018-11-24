@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
             //查询权缓存redis
             List<AuthDTO> authDTOList=userDao.getAuthListByUserId(userDTO.getUserId());
             if(authDTOList==null||authDTOList.size()==0){
-                return ResultBean.fail("您暂无任何权限！");
+                return ResultBean.fail403();
             }else{
                 List<String> authList=new ArrayList<>();
                 for(AuthDTO auth_1:authDTOList){
