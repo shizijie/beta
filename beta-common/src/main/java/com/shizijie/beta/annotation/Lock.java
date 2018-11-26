@@ -13,4 +13,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Lock {
     String[] key() default {};
+    long expireTime() default 1L;
 }

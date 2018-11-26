@@ -61,7 +61,7 @@ public class RedisLockAspect {
         }
         boolean isLock;
         Object result=null;
-        if(isLock=redisService.lock(key)){
+        if(isLock=redisService.lock(key,lock.expireTime())){
             try{
                 result=joinPoint.proceed();
             }catch (Throwable e){
