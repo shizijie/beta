@@ -3,6 +3,7 @@ package com.shizijie.beta.aspect;
 import com.shizijie.beta.annotation.Lock;
 import com.shizijie.beta.model.ResultBean;
 import com.shizijie.beta.redis.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,6 +28,7 @@ import java.util.List;
 @Aspect
 @Component
 @Order(1)
+@Slf4j
 public class RedisLockAspect {
     @Autowired
     RedisService redisService;
@@ -37,12 +39,10 @@ public class RedisLockAspect {
 
 
     @Pointcut("@annotation(com.shizijie.beta.annotation.Lock)")
-    public void pointcut(){
+    public void pointcut(){}
 
-
-    }
     @Around("pointcut()&&@annotation(lock)")
-    public Object test(ProceedingJoinPoint joinPoint, Lock lock) throws Throwable {
+    public Object lock(ProceedingJoinPoint joinPoint, Lock lock) throws Throwable {
         String classType = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         String key=methodName;
@@ -50,11 +50,13 @@ public class RedisLockAspect {
             String[] keys=lock.key();
             Object[] args=joinPoint.getArgs();
             String[] paramsName=getParamsByMethod(classType,methodName,args);
-            for(String str:keys){
-                if(StringUtils.hasText(str)){
-                    String connect=getValueByKey(str,paramsName,args);
-                    if(StringUtils.hasText(connect)){
-                        key+=connect;
+            if(paramsName!=null&&paramsName.length>0){
+                for(String str:keys){
+                    if(StringUtils.hasText(str)){
+                        String connect=getValueByKey(str,paramsName,args);
+                        if(StringUtils.hasText(connect)){
+                            key+=connect;
+                        }
                     }
                 }
             }
@@ -62,6 +64,8 @@ public class RedisLockAspect {
         boolean isLock;
         Object result=null;
         if(isLock=redisService.lock(key,lock.expireTime())){
+            log.info("lock-[{}] is lock",key);
+            long time=System.currentTimeMillis();
             try{
                 result=joinPoint.proceed();
             }catch (Throwable e){
@@ -70,6 +74,7 @@ public class RedisLockAspect {
                 if(redisService.isLock(key)){
                     redisService.unlock(key);
                 }
+                log.info("lock-[{}] is unlock,locked time is [{}]",key,System.currentTimeMillis()-time);
             }
         }
         if(!isLock){
@@ -113,27 +118,40 @@ public class RedisLockAspect {
     }
 
     private String[] getParamsByMethod(String classType,String methodName,Object[] args){
-        Class<?>[] classes = new Class[args.length];
-        for (int k = 0; k < args.length; k++) {
-            if (!args[k].getClass().isPrimitive()) {
-                // 获取的是封装类型而不是基础类型
-                String result = args[k].getClass().getName();
-                Class s = map.get(result);
-                classes[k] = s == null ? args[k].getClass() : s;
-            }
-        }
         ParameterNameDiscoverer pnd = new DefaultParameterNameDiscoverer();
-        // 获取指定的方法，第二个参数可以不传，但是为了防止有重载的现象，还是需要传入参数的类型
-        Method method = null;
         try {
-            method = Class.forName(classType).getMethod(methodName, classes);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Method[] methods=Class.forName(classType).getDeclaredMethods();
+            for(Method method:methods){
+                if(method.getName().equals(methodName)&&method.getParameterTypes().length==args.length){
+                    if(checkMethodByArgs(args,method.getParameterTypes())){
+                        return pnd.getParameterNames(method);
+                    }
+                }
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        // 参数名
-        return pnd.getParameterNames(method);
+        return null;
+    }
+
+    private boolean checkMethodByArgs(Object[] args, Class<?>[] parameterTypes) {
+        for(int i=0;i<args.length;i++){
+            if(args[i]==null){
+                continue;
+            }
+            if(!args[i].getClass().isPrimitive()){
+                String name=args[i].getClass().getName();
+                Class s=map.get(name);
+                s=s==null?args[i].getClass():s;
+                if(s!=parameterTypes[i]){
+                    return false;
+                }
+            }
+            if(args[i].getClass()!=parameterTypes[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     private static HashMap<String, Class> map = new HashMap<String, Class>() {
