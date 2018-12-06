@@ -1,0 +1,5 @@
+spring:
+  application:
+      name: beta-gateway
+  profiles:
+    active: dev

@@ -8,8 +8,12 @@ dependencies {
     //使用 Controller 的时候需要引入 web 包
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-
+    //mysql
     compile ('mysql:mysql-connector-java')
+    //Druid
+    compile ('com.alibaba:druid:1.1.3')
+    //Actuator
+    compile ('org.springframework.boot:spring-boot-starter-actuator')
 
     //hadoop
     compile('org.springframework.data:spring-data-hadoop:2.5.0.RELEASE')

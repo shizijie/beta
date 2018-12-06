@@ -1,6 +1,6 @@
 rootProject.name = 'beta'
 include 'beta-eureka'
-include 'beta-zuul'
+include 'beta-gateway'
 include 'beta-auth'
 include 'eureka-client'
 include 'service-feign'

@@ -6,6 +6,8 @@ eureka:
     lease-renewal-interval-in-seconds: 1
     # 告诉服务端，如果我2s之内没有给你发心跳，就代表我“死”了，将我踢出掉。
     lease-expiration-duration-in-seconds: 2
+    #显示ip
+    prefer-ip-address: true
   client:
     register-with-eureka: true   #fasle将不会启动注册操作
     registry-fetch-interval-seconds: 30   #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
@@ -16,13 +18,36 @@ eureka:
 server:
   port: 8081
 
-spring:
+#spring:
   # mysql
+  #datasource:
+    #driver-class-name: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://127.0.0.1:33306/beta?characterEncoding=utf8
+    #username: root
+    #password: 123456
+
+spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:33306/beta?characterEncoding=utf8
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://127.0.0.1:33306/beta?characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,log4j
+    logSlowSql: true
+
+
   #redis
   redis:
     database: 0

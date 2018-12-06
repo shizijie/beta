@@ -64,7 +64,9 @@ public class RedisLockAspect {
         boolean isLock;
         Object result=null;
         if(isLock=redisService.lock(key,lock.expireTime())){
-            log.info("lock-[{}] is lock",key);
+            if(lock.log()){
+                log.info("lock-[{}] is lock",key);
+            }
             long time=System.currentTimeMillis();
             try{
                 result=joinPoint.proceed();
@@ -74,7 +76,9 @@ public class RedisLockAspect {
                 if(redisService.isLock(key)){
                     redisService.unlock(key);
                 }
-                log.info("lock-[{}] is unlock,locked time is [{}]",key,System.currentTimeMillis()-time);
+                if(lock.log()){
+                    log.info("lock-[{}] is unlock,locked time is [{}]",key,System.currentTimeMillis()-time);
+                }
             }
         }
         if(!isLock){

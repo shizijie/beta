@@ -7,12 +7,11 @@ import java.lang.annotation.Target;
 
 /**
  * @author shizijie
- * @version 2018-11-22 下午8:49
+ * @version 2018-12-05 下午8:09
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Lock {
-    String[] key() default {};
-    long expireTime() default 1L;
-    boolean log() default true;
+@Target(ElementType.FIELD)
+public @interface Validate {
+    boolean notNull() default true;
+
 }
