@@ -4,10 +4,6 @@ import com.shizijie.beta.bean.port.ServicePort;
 import com.shizijie.beta.redis.RedisService;
 import com.shizijie.beta.utils.ip.IpUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PreDestroy;
 
 /**
  * @author shizijie
@@ -42,8 +38,8 @@ public class IdWorker {
     private long datacenterId;
     /** 毫秒内序列(0~4095) */
     private long sequence = 0L;
-    /** 上次生成ID的时间截 */
-    private long lastTimestamp = -1L;
+    /** 上次生成ID的时间截  定为 2018-01-01 00:00:00 */
+    private long lastTimestamp = 1514736000000L;
 
 
     private RedisService redisService;
