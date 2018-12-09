@@ -12,3 +12,8 @@ swagger:
   title:  beta的api文档
   description:  简单优雅的restfun风格
   version:  1.0
+
+snowFlake:
+  redis:
+    open: true
+    key: beta

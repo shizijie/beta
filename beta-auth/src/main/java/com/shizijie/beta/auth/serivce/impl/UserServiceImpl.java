@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     RedisService redisService;
     @Autowired
     RedisTemplate redisTemplate;
+
     @Override
     public ResultBean userLogin(String username, String password) {
         UserDTO userDTO=userDao.getUserByNameAndPwd(username,password);

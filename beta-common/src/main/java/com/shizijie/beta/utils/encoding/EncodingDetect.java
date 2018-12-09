@@ -1,4 +1,4 @@
-package com.shizijie.beta.auth.utils.encoding;
+package com.shizijie.beta.utils.encoding;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,7 +1,7 @@
 package com.shizijie.beta.auth.test;
 
 
-import com.shizijie.beta.auth.utils.encoding.EncodingDetect;
+import com.shizijie.beta.utils.encoding.EncodingDetect;
 
 /**
  * @author shizijie

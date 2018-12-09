@@ -175,6 +175,9 @@ public interface RedisService {
      */
     void listTrimByRange(String key, Long start, Long end);
 
+
+    boolean hasList(String key);
+
     //======================================    Set    =====================================================
 
     /**

@@ -1,4 +1,4 @@
-package com.shizijie.beta.auth.utils;
+package com.shizijie.beta.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

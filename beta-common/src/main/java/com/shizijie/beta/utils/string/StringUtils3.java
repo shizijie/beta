@@ -1,4 +1,4 @@
-package com.shizijie.beta.auth.utils.string;
+package com.shizijie.beta.utils.string;
 /**
  * @author shizijie
  * @version 2018-06-10 下午10:12

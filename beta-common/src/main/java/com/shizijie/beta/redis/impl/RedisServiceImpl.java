@@ -126,6 +126,10 @@ public class RedisServiceImpl implements RedisService {
     public void listTrimByRange(String key, Long start, Long end) {
         redisTemplate.opsForList().trim(key,start,end);
     }
+    @Override
+    public boolean hasList(String key){
+        return redisTemplate.hasKey(key);
+    }
 
     @Override
     public Long sSet(String key, Object... values) {

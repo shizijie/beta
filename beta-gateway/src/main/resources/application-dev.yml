@@ -25,7 +25,6 @@ zuul:
       path: /beta-service/**
       serviceId: beta-service
 
-
 hystrix:
   command:
     default:

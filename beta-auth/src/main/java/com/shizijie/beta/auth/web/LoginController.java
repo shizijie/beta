@@ -3,29 +3,29 @@ package com.shizijie.beta.auth.web;
 import com.shizijie.beta.annotation.Lock;
 import com.shizijie.beta.auth.dao.UserDao;
 import com.shizijie.beta.auth.serivce.impl.UserServiceImpl;
-import com.shizijie.beta.auth.utils.MD5Util;
+import com.shizijie.beta.bean.id.IdWorker;
+import com.shizijie.beta.bean.port.ServicePort;
+import com.shizijie.beta.utils.MD5Util;
 import com.shizijie.beta.auth.vo.UserVO;
 import com.shizijie.beta.model.ResultBean;
-import com.shizijie.beta.auth.thread.BetaThreadPoolServices;
-import com.shizijie.beta.auth.thread.KpiCalcThread;
+import com.shizijie.beta.utils.id.SnowFlakeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.*;
-
+/**
+ * @author shizijie
+ * @version 2018-12-06 下午8:33
+ */
 @Api(value="user", tags="用户模块")
 @RestController
 @RequestMapping("/user")
 public class LoginController {
-    private final static Logger log= LoggerFactory.getLogger(LoginController.class);
     @Autowired
     UserServiceImpl userServiceImpl;
     @Autowired
@@ -38,11 +38,21 @@ public class LoginController {
     })
     @PostMapping("/login")
     public ResultBean login(@Validated @RequestBody UserVO vo){
+        System.out.println(SnowFlakeUtils.nextId());
+        System.out.println(ServicePort.getPort());
         return userServiceImpl.userLogin(vo.getUserName(), MD5Util.md5(vo.getPassword()));
     }
     @GetMapping("/test")
-    @Lock(key="vo.userName")
     public ResultBean test(UserVO vo){
+        Task task=new Task();
+        for(int i=0;i<5;i++){
+            new Thread(task).start();
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return ResultBean.success("1111");
     }
 
