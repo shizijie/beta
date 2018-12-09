@@ -132,19 +132,17 @@ public class IdWorker {
             this.primaryKey=IdWorker.class.getName()+"_"+key;
             if(!redisService.hasList(primaryKey)){
                 if(redisService.lock(key)){
+                    long start=System.currentTimeMillis();
                     for(int i=0;i<workHash;i++){
                         for(int j=0;j<dataHash;j++){
-                            redisService.lPush(primaryKey,i+","+j);
+                            redisService.lPush(primaryKey,i+","+j+","+start);
                         }
                     }
                     redisService.unlock(key);
                 }
             }
-            Object value=redisService.rPop(primaryKey);
-            if(value==null|| StringUtils.isBlank(value.toString())){
-                throw new IllegalArgumentException("workerId+datacenterId is max");
-            }
-            String[] arr=value.toString().split(",");
+
+            String[] arr=getValueByPrimary(primaryKey);
             this.workerId=Long.parseLong(arr[0]);
             this.datacenterId=Long.parseLong(arr[1]);
             this.open=true;
@@ -156,9 +154,22 @@ public class IdWorker {
         }
     }
 
+    public String[] getValueByPrimary(String primaryKey){
+        Object value=redisService.rPop(primaryKey);
+        if(value==null|| StringUtils.isBlank(value.toString())){
+            throw new IllegalArgumentException("(workerId+datacenterId).size is max");
+        }
+        String[] arr=value.toString().split(",");
+        if(System.currentTimeMillis()<Long.parseLong(arr[2])){
+            redisService.lPush(primaryKey,value.toString());
+            getValueByPrimary(primaryKey);
+        }
+        return arr;
+    }
+
     public void destory(){
         if(open){
-            redisService.lPush(primaryKey,workerId+","+datacenterId);
+            redisService.lPush(primaryKey,workerId+","+datacenterId+","+System.currentTimeMillis());
         }
     }
 
