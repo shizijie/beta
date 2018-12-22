@@ -41,7 +41,7 @@ public class ServicePort implements ApplicationListener<EmbeddedServletContainer
     }
 
     @Lazy
-    @Bean(destroyMethod ="destory" )
+    @Bean(destroyMethod ="destroy" )
     public IdWorker idWorker(){
         return new IdWorker(redisService,PROJECT_NAME,OPEN,KEY);
     }

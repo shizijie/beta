@@ -1,8 +1,8 @@
 package com.shizijie.beta.auth.demo.enums;
 
 import com.shizijie.beta.auth.dao.UserDao;
-import com.shizijie.beta.auth.dto.AuthDTO;
-import com.shizijie.beta.auth.dto.UserDTO;
+import com.shizijie.beta.bean.user.dto.AuthDTO;
+import com.shizijie.beta.bean.user.dto.UserDTO;
 
 import java.util.List;
 

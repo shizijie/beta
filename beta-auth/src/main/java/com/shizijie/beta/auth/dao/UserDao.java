@@ -1,7 +1,8 @@
 package com.shizijie.beta.auth.dao;
 
-import com.shizijie.beta.auth.dto.AuthDTO;
-import com.shizijie.beta.auth.dto.UserDTO;
+import com.shizijie.beta.annotation.Save;
+import com.shizijie.beta.bean.user.dto.AuthDTO;
+import com.shizijie.beta.bean.user.dto.UserDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,5 +12,6 @@ public interface UserDao {
 
     List<AuthDTO> getAuthListByUserId(@Param("userId")String userId);
 
+    @Save("system")
     int insertUser(UserDTO user);
 }

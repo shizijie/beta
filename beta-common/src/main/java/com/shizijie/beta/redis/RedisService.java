@@ -255,6 +255,8 @@ public interface RedisService {
      */
     Object get(String key);
 
+    boolean setExpire(String key,int expireTime);
+
     /**
      * 截取key值区间[start,end]的字符串
      * @param key   key

@@ -1,4 +1,4 @@
-package com.shizijie.beta.auth.dto;
+package com.shizijie.beta.bean.user.dto;
 
 import lombok.Data;
 
