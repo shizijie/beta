@@ -93,7 +93,7 @@
     <logger name="java.sql.PreparedStatement" level="INFO" />
     <logger name="com.ruidou.baoqian.mapper" level="INFO" />
     <!-- 开发环境下的日志配置 -->
-    <root level="INFO,DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="SYSTEM_FILE" />
     </root>

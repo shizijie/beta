@@ -175,6 +175,10 @@ public class RedisServiceImpl implements RedisService {
     public Object get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
+    @Override
+    public boolean setExpire(String key,int expireTime){
+        return redisTemplate.expire(key,expireTime,TimeUnit.SECONDS);
+    }
 
     @Override
     public String subString(String key, Long start, Long end) {

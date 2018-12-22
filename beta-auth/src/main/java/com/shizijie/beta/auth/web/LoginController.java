@@ -5,6 +5,8 @@ import com.shizijie.beta.auth.dao.UserDao;
 import com.shizijie.beta.auth.serivce.impl.UserServiceImpl;
 import com.shizijie.beta.bean.id.IdWorker;
 import com.shizijie.beta.bean.port.ServicePort;
+import com.shizijie.beta.bean.user.dto.UserDTO;
+import com.shizijie.beta.params.BetaParams;
 import com.shizijie.beta.utils.MD5Util;
 import com.shizijie.beta.auth.vo.UserVO;
 import com.shizijie.beta.model.ResultBean;
@@ -38,22 +40,27 @@ public class LoginController {
     })
     @PostMapping("/login")
     public ResultBean login(@Validated @RequestBody UserVO vo){
-        System.out.println(SnowFlakeUtils.nextId());
-        System.out.println(ServicePort.getPort());
         return userServiceImpl.userLogin(vo.getUserName(), MD5Util.md5(vo.getPassword()));
     }
     @GetMapping("/test")
     public ResultBean test(UserVO vo){
-        Task task=new Task();
-        for(int i=0;i<5;i++){
-            new Thread(task).start();
-        }
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return ResultBean.success("1111");
+//        Task task=new Task();
+//        for(int i=0;i<5;i++){
+//            new Thread(task).start();
+//        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return ResultBean.success("1111");
+        UserDTO user=new UserDTO();
+        user.setUserName("test");
+        user.setPassword("2222");
+        user.setUserId(SnowFlakeUtils.nextId()+"");
+        userDao.insertUser(user);
+        System.out.println("ok");
+        return ResultBean.success();
     }
 
 }

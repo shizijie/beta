@@ -1,6 +1,7 @@
 package com.shizijie.beta.auth.demo.lambda;
 
-import com.shizijie.beta.auth.dto.UserDTO;
+
+import com.shizijie.beta.bean.user.dto.UserDTO;
 
 import java.util.Arrays;
 import java.util.List;

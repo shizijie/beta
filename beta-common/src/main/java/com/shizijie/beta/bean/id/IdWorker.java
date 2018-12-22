@@ -3,6 +3,7 @@ package com.shizijie.beta.bean.id;
 import com.shizijie.beta.bean.port.ServicePort;
 import com.shizijie.beta.redis.RedisService;
 import com.shizijie.beta.utils.ip.IpUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -10,8 +11,8 @@ import org.apache.commons.lang.StringUtils;
  * @version 2018-12-09 上午10:11
  */
 public class IdWorker {
-    /** 开始时间截 */
-    private final long twepoch = 1288834974657L;
+    /** 开始时间截 定为 2018-01-01 00:00:00 */
+    private final long twepoch = 1514736000000L;
     /** 机器id所占的位数 */
     private final long workerIdBits = 5L;
     /** 数据标识id所占的位数 */
@@ -38,8 +39,8 @@ public class IdWorker {
     private long datacenterId;
     /** 毫秒内序列(0~4095) */
     private long sequence = 0L;
-    /** 上次生成ID的时间截  定为 2018-01-01 00:00:00 */
-    private long lastTimestamp = 1514736000000L;
+    /** 上次生成ID的时间截 */
+    private long lastTimestamp = -1L;
 
 
     private RedisService redisService;
@@ -163,7 +164,7 @@ public class IdWorker {
         return arr;
     }
 
-    public void destory(){
+    public void destroy(){
         if(open){
             redisService.lPush(primaryKey,workerId+","+datacenterId+","+System.currentTimeMillis());
         }

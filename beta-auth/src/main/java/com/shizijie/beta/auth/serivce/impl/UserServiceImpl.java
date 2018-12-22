@@ -1,13 +1,14 @@
 package com.shizijie.beta.auth.serivce.impl;
 
 import com.shizijie.beta.auth.dao.UserDao;
-import com.shizijie.beta.auth.dto.AuthDTO;
-import com.shizijie.beta.auth.dto.UserDTO;
 import com.shizijie.beta.auth.serivce.UserService;
+import com.shizijie.beta.bean.user.dto.AuthDTO;
+import com.shizijie.beta.bean.user.dto.UserDTO;
 import com.shizijie.beta.model.ResultBean;
 import com.shizijie.beta.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RedisTemplate redisTemplate;
 
+    @Value("${filter.sessionTimeOut}")
+    private long sessionTimeOut;
+
     @Override
     public ResultBean userLogin(String username, String password) {
         UserDTO userDTO=userDao.getUserByNameAndPwd(username,password);
@@ -49,8 +53,8 @@ public class UserServiceImpl implements UserService {
                 }
                 userDTO.setAuthList(authList);
                 String uuid= UUID.randomUUID().toString().replace("-","");
-                redisService.set(uuid,userDTO,30*60*1000L);
-                Map<String,Object> map=new HashMap<>();
+                redisService.set(uuid,userDTO,sessionTimeOut);
+                Map<String,Object> map=new HashMap<>(2);
                 map.put("token",uuid);
                 map.put("authList",authDTOList);
                 return ResultBean.success(map);
