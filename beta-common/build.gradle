@@ -26,4 +26,6 @@ dependencies {
     //JSONObject
     compile('net.sf.json-lib:json-lib:2.4:jdk15')
 
+    compile('org.springframework.boot:spring-boot-starter-test')
+
 }

@@ -10,8 +10,9 @@ import java.lang.annotation.Target;
  * @version 2018-12-05 下午8:09
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Validate {
-    boolean notNull() default true;
-
+@Target(ElementType.METHOD)
+public @interface ThreadHelp {
+    String value() default "ThreadHelper";
+    boolean log() default true;
+    int maxSize();
 }

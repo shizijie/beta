@@ -13,11 +13,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * @author shizijie
  * @version 2018-12-06 下午8:33
@@ -55,5 +64,32 @@ public class LoginController {
         }
         return ResultBean.success("1111");
     }
+    public ResultBean upload(@RequestParam(value="file",required=true) MultipartFile file, HttpServletRequest request) throws Exception{
+        String filePath = null;
+        String fileName = file.getOriginalFilename();
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf(".") + 1);
+        //检查文件格式是否合法
+        if(file.getContentType().toLowerCase().contains("image/") && !StringUtils.isBlank(suffixName)
+                && (suffixName.equalsIgnoreCase("BMP")
+                || suffixName.equalsIgnoreCase("JPG") || suffixName.equalsIgnoreCase("JPEG")
+                || suffixName.equalsIgnoreCase("PNG"))) {
+            // 获取登录用户信息
+            Integer userId = 1;
 
+            // 设置文件存储路径
+            filePath = request.getSession().getServletContext().getRealPath("/") + File.separator + userId + "_" + System.currentTimeMillis() + "." + suffixName;
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(filePath);
+            //保存在本地
+            Files.write(path, bytes);
+
+            //上传到远程文件服务器
+            //TODO
+
+            return ResultBean.success(filePath );
+        } else {
+            return ResultBean.fail( "图片格式错误");
+        }
+    }
 }
