@@ -13,14 +13,19 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.util.Beta;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author shizijie
@@ -32,15 +37,18 @@ public class LoginFilter implements Filter {
 
     private RedisService redisService;
 
+    private WebApplicationContext applicationContext;
+
     private String rootPath;
 
     private List<String> passUrl;
 
     private int expireTime;
 
-    public LoginFilter(RedisService redisService,Environment env){
+    public LoginFilter(RedisService redisService,Environment env,WebApplicationContext applicationContext){
         this.redisService=redisService;
         this.rootPath=env.getProperty(BetaParams.ROOT_PATH);
+        this.applicationContext=applicationContext;
         if("true".equals(env.getProperty(BetaParams.FILTER_ON_OFF))){
             this.check = true;
         }
@@ -80,7 +88,25 @@ public class LoginFilter implements Filter {
             }
             redisService.setExpire(token,expireTime);
         }else{
-            userDTO=new UserDTO();
+            RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+            // 获取url与类和方法的对应信息
+            Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
+            List<String> urlList = new ArrayList<>();
+//            for (RequestMappingInfo info : map.keySet()) {
+//                // 获取url的Set集合，一个方法可能对应多个url
+//                Set<String> patterns = info.getPatternsCondition().getPatterns();
+//                urlList.addAll(new ArrayList<>(patterns));
+//            }
+//            System.out.println(urlList);
+//            AntPathMatcher matcher = new AntPathMatcher();
+//            Map<String, String> result=new HashMap<>();
+//            for(String str:urlList){
+//                if(matcher.match(str, req.getRequestURI())){
+//                    result.putAll(matcher.extractUriTemplateVariables(str, req.getRequestURI()));
+//                }
+//            }
+//            System.out.println(result);
+//            userDTO=new UserDTO();
         }
         AuthContext.setUserInfo(userDTO);
         chain.doFilter(req,resp);

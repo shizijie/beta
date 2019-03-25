@@ -3,6 +3,10 @@ spring:
       name: beta-auth
   profiles:
     active: dev
+spark:
+  spark-home: .
+  app-name: sparkTest
+  master: local[4]
 
 logging:
   config: classpath:logback-dev.xml

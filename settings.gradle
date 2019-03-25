@@ -6,4 +6,5 @@ include 'eureka-client'
 include 'service-feign'
 include 'service-ribbon'
 include 'beta-common'
+include 'bete-kafka'
 

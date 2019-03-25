@@ -20,4 +20,10 @@ dependencies {
 
     compile project(':beta-common')
 
+    compile('org.apache.spark:spark-streaming_2.11:2.2.0')
+    compile('org.apache.spark:spark-sql_2.11:2.2.0')
+    configurations {
+        all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+
 }

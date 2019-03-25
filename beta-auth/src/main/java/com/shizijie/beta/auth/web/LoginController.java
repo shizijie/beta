@@ -2,6 +2,7 @@ package com.shizijie.beta.auth.web;
 
 import com.shizijie.beta.annotation.Lock;
 import com.shizijie.beta.auth.dao.UserDao;
+import com.shizijie.beta.auth.serivce.SparkTestService;
 import com.shizijie.beta.auth.serivce.impl.UserServiceImpl;
 import com.shizijie.beta.bean.id.IdWorker;
 import com.shizijie.beta.bean.port.ServicePort;
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
 /**
  * @author shizijie
@@ -42,6 +45,9 @@ public class LoginController {
     @Autowired
     UserDao userDao;
 
+//    @Autowired
+//    private KafkaTemplate<String, String> kafkaTemplate;
+
     @ApiOperation(value="用户登录",notes="根据用户信息登录验证")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String"),
@@ -51,8 +57,10 @@ public class LoginController {
     public ResultBean login(@Validated @RequestBody UserVO vo){
         return userServiceImpl.userLogin(vo.getUserName(), MD5Util.md5(vo.getPassword()));
     }
-    @GetMapping("/test")
-    public ResultBean test(UserVO vo){
+    @GetMapping("/test/{token}")
+    public ResultBean test(@PathVariable String token){
+        System.out.println(token);
+        //kafkaTemplate.send("xlkafka","hellow!");
 //        Task task=new Task();
 //        for(int i=0;i<5;i++){
 //            new Thread(task).start();
@@ -67,7 +75,7 @@ public class LoginController {
         user.setUserName("test");
         user.setPassword("2222");
         user.setUserId(SnowFlakeUtils.nextId()+"");
-        userDao.insertUser(user);
+        //userDao.insertUser(user);
         System.out.println("ok");
         return ResultBean.success();
     }
@@ -98,5 +106,24 @@ public class LoginController {
         } else {
             return ResultBean.fail( "图片格式错误");
         }
+    }
+
+
+    @Autowired
+    private SparkTestService sparkTestService;
+
+    @RequestMapping("/demo/top10")
+    public Map<String, Object> calculateTopTen() {
+        return sparkTestService.calculateTopTen();
+    }
+
+    @RequestMapping("/demo/exercise")
+    public void exercise() {
+        sparkTestService.sparkExerciseDemo();
+    }
+
+    @RequestMapping("/demo/stream")
+    public void streamingDemo() throws InterruptedException {
+        sparkTestService.sparkStreaming();
     }
 }

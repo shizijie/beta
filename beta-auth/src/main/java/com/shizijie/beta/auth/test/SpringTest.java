@@ -1,6 +1,6 @@
 package com.shizijie.beta.auth.test;
 
-import com.shizijie.beta.auth.dto.UserDTO;
+import com.shizijie.beta.bean.user.dto.UserDTO;
 import com.shizijie.beta.utils.thread.ThreadPoolUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

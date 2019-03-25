@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * @author shizijie
@@ -18,9 +19,11 @@ public class FilterConfig {
     RedisService redisService;
     @Autowired
     Environment env;
+    @Autowired
+    WebApplicationContext applicationContext;
     @Bean
     public LoginFilter loginFilter(){
-        return new LoginFilter(redisService,env);
+        return new LoginFilter(redisService,env,applicationContext);
     }
     @Bean
     public FilterRegistrationBean filterRegistrationBean(LoginFilter loginFilter){

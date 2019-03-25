@@ -3,8 +3,8 @@ package com.shizijie.beta.auth.test;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.shizijie.beta.annotation.ThreadHelp;
-import com.shizijie.beta.auth.dto.UserDTO;
 import com.shizijie.beta.auth.thread.KpiCalcThread;
+import com.shizijie.beta.bean.user.dto.UserDTO;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;

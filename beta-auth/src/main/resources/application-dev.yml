@@ -9,11 +9,22 @@ eureka:
     #显示ip
     prefer-ip-address: true
   client:
-    register-with-eureka: true   #fasle将不会启动注册操作
+    register-with-eureka: false    #fasle将不会启动注册操作
     registry-fetch-interval-seconds: 30   #表示eureka client间隔多久去拉取服务注册信息，默认为30秒
-    fetch-registry: true   #是否需要去检索寻找服务，默认是true
+    fetch-registry: false   #是否需要去检索寻找服务，默认是true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+#  kafka:
+#    bootstrap-servers: 127.0.0.1:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      group-id: test
+#      enable-auto-commit: true
+#      auto-commit-interval: 1000
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 server:
   port: 8081
