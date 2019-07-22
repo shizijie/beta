@@ -10,19 +10,35 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 server:
-  port: 8080
+  port: 8082
+
 
 spring:
-  # mysql
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.104:33306/beta?characterEncoding=utf8
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://192.168.1.117:33306/beta?characterEncoding=utf8
     username: root
     password: 123456
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,log4j
+    logSlowSql: true
+
+
   #redis
   redis:
     database: 0
-    host: 192.168.1.104
+    host: 192.168.1.117
     password: foobared
     port: 36379
     pool:
@@ -30,6 +46,7 @@ spring:
       min-idle: 0
       max-active: 8
       max-wait: -1
+
 
 
 # mybatis配置

@@ -27,3 +27,7 @@ dependencies {
     }
 
 }
+jar{
+    baseName="beta-auth"
+    archiveName="beta-auth.jar"
+}

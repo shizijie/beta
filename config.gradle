@@ -1,0 +1,149 @@
+ext{
+    mvnUrl='http://maven.aliyun.com/nexus/content/groups/public'
+    //mvnUrl='http://repo1.maven.org/maven2/'
+    //mvnUrl='https://repo.maven.apache.org/maven2'
+    spring=[
+            springCore:'5.1.6.RELEASE',
+            springBoot:'2.1.4.RELEASE',
+            springCloud:'Greenwich.RELEASE',
+            springloaded:'1.2.8.RELEASE',
+            nacos:'0.9.0.RELEASE',
+            mybatis:'2.0.0',
+            pagehelper:'1.2.10'
+    ]
+
+    swagger=[
+            springfox:'2.9.2',
+            models:'1.5.22'
+    ]
+
+    db=[
+            oracle:'11.2.0.1.0',
+            postgresql:'42.1.4',
+            mysql:'5.1.47'
+    ]
+
+    cglib='3.2.S'
+    commonsLogging='1.2'
+    commonsCodec='1.6'
+    commonsLang3='3.3.2'
+    commonsPool2='2.6.2'
+
+    druid='1.1.2'
+
+    fastjson='1.2.36'
+
+    guava='72.0.1-jre'
+
+    httpclient='4.5.3'
+    hikaricp='2.7.8'
+
+    jodaTime='2.2'
+    jacksonCore='2.9.8'
+    junit='4.12'
+
+    log4j='1.2.16'
+    lombok='1.18.6'
+
+    mybatis='3.5.0'
+    mysql='5.1.47'
+
+    okhttp3='3.8.1'
+
+    pagehelper='5.1.8'
+    poi='4.1.0'
+
+    tomcatJdbc='9.0.1'
+
+
+
+    libs=[
+            //c
+            cglib : "cglib:cglib:${cglib}",
+            commons_logging : "commons-logging:commons-logging:${commonsLogging}",
+            commons_codec : "commons-codec:common-codec:${commonsCodec}",
+            commons_lang3 : "org.apache.commons-lang3:${commonsLang3}",
+            commons_pool2 : "org.apache.commons-pool2:${commonsPool2}",
+
+            //d
+            druid : "com.alibaba:druid:${druid}",
+
+            //f
+            fastjson : "com.alibaba:fastjson:${fastjson}",
+
+            //g
+            guava : "com.google.guava:guava:${guava}",
+
+            //h
+            httpclient : "org.apache.httpcomponents:httpclient:${httpclient}",
+            httpclient_httpmime : "org.apache.httpcomponents:httpmime:${httpclient}",
+            hikaricp : "com.zaxxer:HikariCP:${hikaricp}",
+
+            //j
+            joda_time : "joda-time:joda-time:${jodaTime}",//日期管理
+            jackson_core : "com,fasterxml.jackson.core:jackson-core:${jacksonCore}",
+            jackson_databind : "com.fasterxml.jackson.core:jackson-databind:${jacksonCore}",
+            junit : "junit:junit:${junit}",
+
+            //L
+            log4j : "log4j:log4j:${log4j}",
+            lombok : "org.projectlombok:lombok:${lombok}",
+
+            //m
+            mybatis : "org.mybatis:mybatis:${mybatis}",
+            mybatis_spring : "org.mybatis:${spring.mybatis}",
+            mysql : "mysql:mysql-connector-java:${db.mysql}",
+
+            //o
+            okhttp3 : "com.squareup.okhttp3:okhttp:${okhttp3}",
+            oracle : "com.oracle.ojdbc6:ojdbc6:${db.oracle}",
+
+            //p
+            pagehelper : "com.github.pagehelper:pagehelper:${pagehelper}",
+            postgresql : "org.postgresql:postgresql:${db.postgresql}",
+            poi : "org.apache.poi:poi:${poi}",
+            poi_scratchpad : "org.apache.poi:poi-scratchpad:${poi}",
+            poi_ooxml_schemas : "org.apache.poi:poi-ooxml-schemas:${poi}",
+            poi_excelant : "org.apache.poi:poi-excelant:${poi}",
+
+            //s
+            spring_core : "org.springframework:spring-core:${spring.springCore}",
+
+            //springboot
+            springboot_starter_web : "org.springframework.boot:spring-boot-starter-web",
+            springboot_starter_jdbc : "org.springframework.boot:spring-boot-starter-jdbc",
+            springboot_starter_pagehelper : "com.github.pagehelper:pagehelper-spring-boot-starter:${spring.pagehelper}",
+            springboot_starter_logging : "org. springframework. boot: spring-boot-starter-logging",
+            springboot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
+            springboot_starter_data_redis : "org.spring-framework.boot:spring-boot-starter-data-redis",
+            springboot_starter_aop : "org.springframework.boot:spring-boot-starter-aop",
+            springboot_starter_test : "org.springframework.boot:spring-boot-starter-test",
+            springboot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
+            springboot_starter_undertow : "org.springframework.boot:spring-boot-starter-undertow",
+            springboot_starter_reactor_netty : "org.springframework.boot:spring-boot-starter-reactor-netty",
+
+            //springcloud
+            springcloud_starter_eureka : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            springcloud_starter_feign : "org.springframework.cloud:spring-cloud-starter-feign",
+            springcloud_starter_config : "org.springframework.cloud:spring-cloud-starter-config",
+            springcloud_starter_sleuth : "org.springframework.cloud:spring-cloud-starter-sleuth",
+            springcloud_starter_zuul : "org.springframework.cloud:spring-cloud-starter-zuul",
+            springcloud_starter_eureka_server : "org.springframe.iork.cloud:spring-cloud-starter-netflix-eureka-server",
+            springcloud_starter_netflix_hystrix : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
+            springcloud_starter_nacos_config : "org.springframework.cloud:spring-cloud-starter-alibaba-nacos-config:${spring.nacos}",
+            springcloud_starter_nacos_discovery : "org.springframework.cloud:spring-cloud-starter-alibaba-nacos-discovery:${spring.nacos}",
+            springcloud_starter_openfeign : "org.springframework.cloud: spring-cloud-starter-openfeign",
+            springcloud_starter_gateway : "org.springframework.cloud:spring-cloud-starter-gateway",
+            springcloud_starter_gatewayjiebflux : "org.springframework.cloud:spring-cloud-gateway-webflux",
+
+            springfox_swagger2 : "io.springfox:springfox-swagger2:${swagger.springfox}",
+            springfoxswagger_ui : "io.springfox:springfox-swagger-ui:${swagger.springfox}",
+            swagger_annotations : "io.swagger:swagger-annotations:${swagger.models}",
+            swagger_models : "io.swagger:swagger-models:${swagger.models}",
+
+            //t
+            tomcat_jdbc : "org.apache.tomcat:tomcat-jdbc:${tomcatJdbc}"
+    ]
+
+
+}

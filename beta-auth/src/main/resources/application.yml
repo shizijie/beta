@@ -2,7 +2,7 @@ spring:
   application:
       name: beta-auth
   profiles:
-    active: dev
+    active: ci
 spark:
   spark-home: .
   app-name: sparkTest

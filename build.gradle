@@ -1,51 +1,57 @@
-group 'com.shizijie.beta'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
+configurations {
+    compile.exclude module:'spring-boot-starter-tomcat'
+}
+//gradle脚本自身需要的资源
 buildscript {
-    ext{
-        springBootVersion='1.5.12.RELEASE'
-        springCloudVersion='Edgware.SR3'
-    }
+    apply from: 'config.gradle'
     repositories {
         maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public'
-            //url 'http://repo1.maven.org/maven2/'
-            //url 'https://repo.maven.apache.org/maven2'
+            url mvnUrl
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring.springBoot}")
         classpath("io.spring.gradle:dependency-management-plugin")
+        //热加载
+        classpath("org.springframework:springloaded:${spring.springloaded}")
     }
 }
 
-subprojects {
+//所有项目
+allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'eclipse'
+    apply plugin: 'maven'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
-    group ='com.xl'
-    version='0.0.1'
+    group ='com.shizijie.beta'
+    //version='0.0.1'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    repositories {
-        maven {url 'http://maven.aliyun.com/nexus/content/groups/public'}
-    }
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    defaultTasks('clean','build','testClasses')
+
+    repositories{
+        flatDir{
+            dirs "${rootDir}/lib","lib"
+        }
+        maven {
+            url mvnUrl
         }
     }
-
+}
+//子项目
+subprojects {
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${spring.springBoot}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${spring.springCloud}"
+        }
+    }
     sourceSets {
         main {
             resources {
