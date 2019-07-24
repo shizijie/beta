@@ -1,0 +1,38 @@
+logging:
+  file: /beta/strive/app.log
+  level:
+    org.springframework: info
+
+server:
+  undertow:
+    io-threads: 2
+    worker-threads: 4
+    accesslog:
+      enabled: true
+      dir: /beta/strive
+      pattern: '%t %a %A %{i,X-Forwarded-For} %p %r %s %b "%{i,Referer}" "%{i,User-Agent}" (%D ms)'
+      prefix: access.
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:33306/beta?characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    hikari:
+      minimum-idle: 6
+      maximum-pool-size: 15
+      pool-name: hikariPC
+      connection-timeout: 30000
+
+  #redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    password: foobared
+    port: 36379
+    lettuce:
+      pool:
+        max-idle: 8
+        min-idle: 5
+        max-active: 16
+        max-wait: 1000

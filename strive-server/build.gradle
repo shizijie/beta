@@ -1,0 +1,13 @@
+dependencies {
+    compile project(':strive-common')
+    implementation libs.springcloud_starter_nacos_config
+    implementation libs.springcloud_starter_nacos_discovery
+    implementation libs.springboot_starter_pagehelper
+    implementation libs.springcloud_starter_openfeign
+    implementation libs.springcloud_starter_sleuth
+    implementation libs.mysql
+    implementation libs.pagehelper
+    implementation libs.mybatis_spring
+    implementation libs.springboot_starter_test
+    implementation libs.commons_pool2
+}

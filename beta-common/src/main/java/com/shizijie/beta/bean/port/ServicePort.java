@@ -5,7 +5,7 @@ import com.shizijie.beta.redis.RedisService;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
+import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
  * @version 2018-12-09 下午1:12
  */
 @Configuration
-public class ServicePort implements ApplicationListener<EmbeddedServletContainerInitializedEvent> {
+public class ServicePort implements ApplicationListener<WebServerInitializedEvent> {
     @Autowired
     RedisService redisService;
     @Value("${spring.application.name}")
@@ -27,15 +27,15 @@ public class ServicePort implements ApplicationListener<EmbeddedServletContainer
     @Value("${snowFlake.redis.key}")
     String KEY;
 
-    private static EmbeddedServletContainerInitializedEvent event;
+    private static WebServerInitializedEvent event;
 
     @Override
-    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
+    public void onApplicationEvent(WebServerInitializedEvent event) {
         ServicePort.event = event;
     }
     public static int getPort() {
         Assert.notNull(ServicePort.event,"实例为空，端口号获取失败");
-        int port = ServicePort.event.getEmbeddedServletContainer().getPort();
+        int port = ServicePort.event.getWebServer().getPort();
         Assert.state(port != -1, "端口号获取失败");
         return port;
     }

@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: strive-server
+  cloud:
+    nacos:
+      config:
+        enabled: false
+        file-extension: yml
+        server-addr:
+        group: demo
+      discovery:
+        enabled: false
+        register-enabled: false
+        server-addr:
+        service:
+server:
+  port: 8080
+
+  servlet:
+    context-path: /strive
+
+
+log:
+  file:
+    path: /beta/${spring.application.name}
+mybatis:
+  #config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

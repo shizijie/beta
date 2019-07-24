@@ -33,7 +33,7 @@ ext{
 
     fastjson='1.2.36'
 
-    guava='72.0.1-jre'
+    guava='27.0.1-jre'
 
     httpclient='4.5.3'
     hikaricp='2.7.8'
@@ -62,8 +62,8 @@ ext{
             cglib : "cglib:cglib:${cglib}",
             commons_logging : "commons-logging:commons-logging:${commonsLogging}",
             commons_codec : "commons-codec:common-codec:${commonsCodec}",
-            commons_lang3 : "org.apache.commons-lang3:${commonsLang3}",
-            commons_pool2 : "org.apache.commons-pool2:${commonsPool2}",
+            commons_lang3 : "org.apache.commons:commons-lang3:${commonsLang3}",
+            commons_pool2 : "org.apache.commons:commons-pool2:${commonsPool2}",
 
             //d
             druid : "com.alibaba:druid:${druid}",
@@ -91,7 +91,7 @@ ext{
 
             //m
             mybatis : "org.mybatis:mybatis:${mybatis}",
-            mybatis_spring : "org.mybatis:${spring.mybatis}",
+            mybatis_spring : "org.mybatis:mybatis-spring:${spring.mybatis}",
             mysql : "mysql:mysql-connector-java:${db.mysql}",
 
             //o
@@ -115,7 +115,7 @@ ext{
             springboot_starter_pagehelper : "com.github.pagehelper:pagehelper-spring-boot-starter:${spring.pagehelper}",
             springboot_starter_logging : "org. springframework. boot: spring-boot-starter-logging",
             springboot_starter_log4j2 : "org.springframework.boot:spring-boot-starter-log4j2",
-            springboot_starter_data_redis : "org.spring-framework.boot:spring-boot-starter-data-redis",
+            springboot_starter_data_redis : "org.springframework.boot:spring-boot-starter-data-redis",
             springboot_starter_aop : "org.springframework.boot:spring-boot-starter-aop",
             springboot_starter_test : "org.springframework.boot:spring-boot-starter-test",
             springboot_starter_actuator : "org.springframework.boot:spring-boot-starter-actuator",
@@ -128,11 +128,11 @@ ext{
             springcloud_starter_config : "org.springframework.cloud:spring-cloud-starter-config",
             springcloud_starter_sleuth : "org.springframework.cloud:spring-cloud-starter-sleuth",
             springcloud_starter_zuul : "org.springframework.cloud:spring-cloud-starter-zuul",
-            springcloud_starter_eureka_server : "org.springframe.iork.cloud:spring-cloud-starter-netflix-eureka-server",
+            springcloud_starter_eureka_server : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server",
             springcloud_starter_netflix_hystrix : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
             springcloud_starter_nacos_config : "org.springframework.cloud:spring-cloud-starter-alibaba-nacos-config:${spring.nacos}",
             springcloud_starter_nacos_discovery : "org.springframework.cloud:spring-cloud-starter-alibaba-nacos-discovery:${spring.nacos}",
-            springcloud_starter_openfeign : "org.springframework.cloud: spring-cloud-starter-openfeign",
+            springcloud_starter_openfeign : "org.springframework.cloud:spring-cloud-starter-openfeign",
             springcloud_starter_gateway : "org.springframework.cloud:spring-cloud-starter-gateway",
             springcloud_starter_gatewayjiebflux : "org.springframework.cloud:spring-cloud-gateway-webflux",
 

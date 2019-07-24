@@ -1,9 +1,8 @@
 
 dependencies {
-    compile('org.springframework.cloud:spring-cloud-starter-feign')
-    compile('org.springframework.cloud:spring-cloud-starter-eureka')
-    compile('org.springframework.cloud:spring-cloud-starter-hystrix')
-    compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
+    implementation libs.springcloud_starter_openfeign
+    implementation libs.springcloud_starter_eureka
+    implementation libs.springcloud_starter_netflix_hystrix
 
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')

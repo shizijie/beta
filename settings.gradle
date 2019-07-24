@@ -7,4 +7,6 @@ include 'service-feign'
 include 'service-ribbon'
 include 'beta-common'
 include 'bete-kafka'
+include 'strive-server'
+include 'strive-common'
 
