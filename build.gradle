@@ -1,6 +1,4 @@
-configurations {
-    compile.exclude module:'spring-boot-starter-tomcat'
-}
+
 //gradle脚本自身需要的资源
 buildscript {
     apply from: 'config.gradle'
@@ -42,6 +40,9 @@ allprojects {
         maven {
             url mvnUrl
         }
+    }
+    configurations {
+        compile.exclude group:'org.springframework.boot' ,module:'spring-boot-starter-tomcat'
     }
 }
 //子项目

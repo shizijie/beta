@@ -12,7 +12,6 @@ dependencies {
     implementation libs.mybatis
     implementation libs.springboot_starter_aop
     implementation libs.springboot_starter_jdbc
-    implementation libs.springboot_starter_undertow
     implementation libs.springboot_starter_web
     implementation libs.springboot_starter_actuator
 

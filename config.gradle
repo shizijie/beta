@@ -29,7 +29,7 @@ ext{
     commonsLang3='3.3.2'
     commonsPool2='2.6.2'
 
-    druid='1.1.2'
+    druid='1.1.10'
 
     fastjson='1.2.36'
 

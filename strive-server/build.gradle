@@ -1,5 +1,8 @@
 dependencies {
     compile project(':strive-common')
+    implementation libs.springboot_starter_undertow
+    implementation libs.druid
+    //implementation libs.springcloud_starter_eureka
     implementation libs.springcloud_starter_nacos_config
     implementation libs.springcloud_starter_nacos_discovery
     implementation libs.springboot_starter_pagehelper
