@@ -1,3 +1,4 @@
+# 日志地址
 logPath: /Users/shizijie/spring-boot-log/beta/strive
 
 logging:
@@ -81,6 +82,14 @@ spring:
     port: 36379
     lettuce:
       pool:
-        max-idle: 8
-        min-idle: 5
+        # 连接池最大连接数（使用负值表示没有限制）
         max-active: 16
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 10000
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 5
+      # 关闭超时时间
+      shutdown-timeout: 100
+

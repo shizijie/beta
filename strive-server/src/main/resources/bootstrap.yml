@@ -21,10 +21,6 @@ server:
   servlet:
     context-path: /strive
 
-
-log:
-  file:
-    path: /beta/${spring.application.name}
 mybatis:
   #config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/**/*.xml

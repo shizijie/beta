@@ -1,5 +1,6 @@
 package com.szj.beta.strive;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 2019-07-24 下午11:41
  */
 @SpringBootApplication(scanBasePackages = "com.szj.beta")
+@MapperScan("com.szj.beta.strive.*.dao")
 //@EnableEncry
 public class StriveServerApplication {
     public static void main(String[] args) {
