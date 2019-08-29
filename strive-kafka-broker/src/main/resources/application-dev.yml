@@ -101,11 +101,11 @@ spring:
       buffer-memory: 33554432
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      group-id: testconsumer
-      enable-auto-commit: true
-      auto-commit-interval: 100
-      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
-      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-      auto-offset-reset: earliest
+#    consumer:
+#      group-id: testconsumer
+#      enable-auto-commit: true
+#      auto-commit-interval: 100
+#      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+#      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+#      auto-offset-reset: earliest

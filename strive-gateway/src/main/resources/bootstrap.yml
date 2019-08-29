@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    #active: dev
+  application:
+    name: strive-gateway
+
+  cloud:
+      gateway:
+        routes:
+        - id: strive
+          uri: http://localhost:8081/
+          predicates:
+          - Path=/server/**
+          filters:
+          - StripPrefix=1
+          - name: Hystrix
+            args:
+              name: fallbackcmd
+              fallbackUri: forward:/fallback
+
+server:
+  port: 8888

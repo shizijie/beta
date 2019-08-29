@@ -1,0 +1,4 @@
+dependencies {
+    implementation libs.springcloud_starter_gateway
+    implementation libs.springcloud_starter_netflix_hystrix
+}

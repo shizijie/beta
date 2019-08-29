@@ -9,4 +9,8 @@ include 'beta-common'
 include 'bete-kafka'
 include 'strive-server'
 include 'strive-common'
+include 'strive-gateway'
+include 'strive-kafka-broker'
+include 'strive-kafka-consumer1'
+include 'strive-kafka-consumer2'
 

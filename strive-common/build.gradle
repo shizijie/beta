@@ -3,7 +3,6 @@ dependencies {
     implementation libs.commons_logging
     implementation libs.commons_lang3
     implementation libs.fastjson
-    implementation libs.lombok
     implementation libs.joda_time
     implementation libs.jackson_databind
     implementation libs.okhttp3

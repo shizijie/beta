@@ -16,10 +16,10 @@ spring:
         server-addr:
         service:
 server:
-  port: 8082
+  port: 8182
 
   servlet:
-    context-path: /strive
+    context-path:
 
 mybatis:
   #config-location: classpath:mybatis/mybatis-config.xml

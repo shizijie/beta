@@ -31,26 +31,26 @@ public class TransactionConfig {
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
 
-    @Bean
-    public TransactionInterceptor txAdvice(){
-        NameMatchTransactionAttributeSource source=new NameMatchTransactionAttributeSource();
-        //只读事务
-        final RuleBasedTransactionAttribute readOnlyTx=new RuleBasedTransactionAttribute();
-        readOnlyTx.setReadOnly(true);
-        readOnlyTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_NOT_SUPPORTED);
-        //当前存在事务就使用当前事务，不存在则创建一个
-        final RuleBasedTransactionAttribute requiredTx=new RuleBasedTransactionAttribute();
-        requiredTx.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
-        requiredTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        requiredTx.setTimeout(TX_TIMEOUT);
-        Map<String,TransactionAttribute> txMap=new HashMap<>();
-        Arrays.asList(readOnlyArr).stream().forEach(a->{
-            txMap.put(a,readOnlyTx);
-        });
-        Arrays.asList(requiredArr).stream().forEach(a->{
-            txMap.put(a,requiredTx);
-        });
-        source.setNameMap(txMap);
-        return new TransactionInterceptor(platformTransactionManager,source);
-    }
+//    @Bean
+//    public TransactionInterceptor txAdvice(){
+//        NameMatchTransactionAttributeSource source=new NameMatchTransactionAttributeSource();
+//        //只读事务
+//        final RuleBasedTransactionAttribute readOnlyTx=new RuleBasedTransactionAttribute();
+//        readOnlyTx.setReadOnly(true);
+//        readOnlyTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_NOT_SUPPORTED);
+//        //当前存在事务就使用当前事务，不存在则创建一个
+//        final RuleBasedTransactionAttribute requiredTx=new RuleBasedTransactionAttribute();
+//        requiredTx.setRollbackRules(Collections.singletonList(new RollbackRuleAttribute(Exception.class)));
+//        requiredTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+//        requiredTx.setTimeout(TX_TIMEOUT);
+//        Map<String,TransactionAttribute> txMap=new HashMap<>();
+//        Arrays.asList(readOnlyArr).stream().forEach(a->{
+//            txMap.put(a,readOnlyTx);
+//        });
+//        Arrays.asList(requiredArr).stream().forEach(a->{
+//            txMap.put(a,requiredTx);
+//        });
+//        source.setNameMap(txMap);
+//        return new TransactionInterceptor(platformTransactionManager,source);
+//    }
 }
